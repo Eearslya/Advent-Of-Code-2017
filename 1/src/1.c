@@ -37,13 +37,8 @@ char *solve(char *input, int part) {
     answer = 0;
     input_length = strlen(input);
 
-    if (part == 1) {
-        jump = 1;
-    }
-    else {
-        jump = (int) input_length / 2;
-    }
-    
+    jump = (part == 1 ? 1 : (int) input_length / 2);
+
     for (i = 0; i < input_length; i++) {
         pos = i + jump;
         if (pos > input_length) {
