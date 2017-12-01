@@ -38,25 +38,25 @@ char *solve(char *input, int part) {
     input_length = strlen(input);
 
     if (part == 1) {
-	jump = 1;
+        jump = 1;
     }
     else {
-	jump = (int) input_length / 2;
+        jump = (int) input_length / 2;
     }
-
+    
     for (i = 0; i < input_length; i++) {
-	pos = i + jump;
-	if (pos > input_length) {
-	    pos -= input_length;
-	}
-	if (input[i] == input[pos]) {
-	    answer += input[i] - '0';
-	}
+        pos = i + jump;
+        if (pos > input_length) {
+            pos -= input_length;
+        }
+        if (input[i] == input[pos]) {
+            answer += input[i] - '0';
+        }
     }
-
+    
     answer_buf = malloc(sizeof(char) * 16);
     snprintf(answer_buf, 15, "%d", answer);
-
+    
     return answer_buf;
 }
 
@@ -92,7 +92,7 @@ char *read_input() {
 
     input_file = fopen("input", "r");
     if (input_file == NULL) {
-	fatal("Please put your puzzle input in a file called \"input\" (case-sensitive) in the same folder as the program.\n");
+        fatal("Please put your puzzle input in a file called \"input\" (case-sensitive) in the same folder as the program.\n");
     }
 
     // Find the file's length by seeking to the end...
@@ -103,26 +103,26 @@ char *read_input() {
 
     input = (char*) malloc(sizeof(char) * input_len);
     if (input == NULL) {
-	fatal("Out of memory!");
+        fatal("Out of memory!");
     }
 
     read_bytes = fread(input, sizeof(char), input_len, input_file);
     if (read_bytes != input_len) {
-	fatal("Error reading input file!");
+        fatal("Error reading input file!");
     }
 
     fclose(input_file);
 
     // Strip trailing newlines, carriage returns, and spaces from the input.
     for (i = (input_len - 1); i >= 0; i--) {
-	if (input[i] == '\r' || input[i] == '\n' || input[i] == ' ') {
-	    input[i] = 0;
-	}
-	else {
-	    break;
-	}
+        if (input[i] == '\r' || input[i] == '\n' || input[i] == ' ') {
+            input[i] = 0;
+        }
+        else {
+            break;
+        }
     }
-
+    
     return input;
 }
 
