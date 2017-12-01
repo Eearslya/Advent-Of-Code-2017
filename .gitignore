@@ -1,0 +1,8 @@
+*.o
+*.gcda
+*.gcno
+*.gcov
+*~
+*#
+solution
+input
