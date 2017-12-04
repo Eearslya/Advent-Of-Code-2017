@@ -123,6 +123,7 @@ struct puzzle_input *read_input() {
 	input->passphrases = malloc(0);
 	line = NULL;
 	while (getline(&line, &line_len, input_file) >= 0) {
+		// Strip newline characters from each line.
 		line_len = strlen(line);
 		for (i = line_len - 1; i >= 0; i--) {
 			if (line[i] == '\r' || line[i] == '\n' || line[i] == ' ') {
@@ -144,6 +145,8 @@ struct puzzle_input *read_input() {
 			pass->words[pass->word_count] = strcopy(word);
 			word_alpha = calloc(1, sizeof(char) * (word_length + 1));
 			pos = 0;
+			// Alphabetize each word and store a copy of it.
+			// This is a quick an easy way to check for anagrams.
 			memset((void*) &count, 0, sizeof(unsigned char) * 26);
 			for (i = 0; i < word_length; i++) {
 				count[word[i] - 'a']++;
