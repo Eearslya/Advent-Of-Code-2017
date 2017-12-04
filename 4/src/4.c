@@ -111,6 +111,7 @@ struct puzzle_input *read_input() {
 	size_t line_len;
 	struct passphrase *pass;
 	struct puzzle_input *input;
+	unsigned char count[26];
 
 	input_file = fopen("input", "r");
 	if (input_file == NULL) {
@@ -143,16 +144,17 @@ struct puzzle_input *read_input() {
 			pass->words[pass->word_count] = strcopy(word);
 			word_alpha = calloc(1, sizeof(char) * (word_length + 1));
 			pos = 0;
+			memset((void*) &count, 0, sizeof(unsigned char) * 26);
+			for (i = 0; i < word_length; i++) {
+				count[word[i] - 'a']++;
+			}
 			for (i = 0; i < 26; i++) {
-				for (j = 0; j < word_length; j++) {
-					if (word[j] == ('a' + i)) {
-						word_alpha[pos++] = word[j];
-					}
+				for (j = 0; j < count[i]; j++) {
+					word_alpha[pos++] = i + 'a';
 				}
 			}
-			pass->alpha_words[pass->word_count] = strcopy(word_alpha);
+			pass->alpha_words[pass->word_count] = word_alpha;
 			pass->word_count++;
-			free(word_alpha);
 			word = strtok(NULL, " ");
 		}
 		input->passphrases = realloc(input->passphrases, sizeof(struct passphrase*) * (input->passphrase_count + 1));
