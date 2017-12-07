@@ -69,14 +69,7 @@ std::string part_two(std::string input) {
 }
 
 void MemoryBank::cycle(void) {
-	std::list<unsigned int>::iterator max{banks.begin()};
-	// Find the largest value memory bank
-	for (auto it = banks.begin(); it != banks.end(); it++) {
-		if (*it > *max) {
-			max = it;
-		}
-	}
-	auto it = max;
+	auto it = std::max_element(banks.begin(), banks.end());;
 	unsigned int toDistribute = *it;
 	*it = 0;
 	// Redistribute it amongst the other memory banks
